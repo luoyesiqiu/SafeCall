@@ -49,7 +49,7 @@ int before_call(const void *func_addr) {
         }
         uintptr_t local_func_addr = ((uintptr_t)func_addr - (uintptr_t)dl_info.dli_fbase);
         char record_file_name[1024] = {0};
-        snprintf(record_file_name,1024,"%s/sc_%lx",workspace_dir,local_func_addr);
+        snprintf(record_file_name,1024,"%s/sc_%x",workspace_dir,(uint32_t)local_func_addr);
         if(access(record_file_name,F_OK) != 0) {
             FILE *fp = fopen(record_file_name,"w");
             if(fp) {
@@ -76,7 +76,7 @@ void after_call(const void *func_addr) {
         }
         uintptr_t local_func_addr = ((uintptr_t)func_addr - (uintptr_t)info.dli_fbase);
         char record_file_name[1024] = {0};
-        snprintf(record_file_name,1024,"%s/sc_%lx",workspace_dir,local_func_addr);
+        snprintf(record_file_name,1024,"%s/sc_%x",workspace_dir,(uint32_t)local_func_addr);
         if(access(record_file_name,F_OK) == 0) {
             remove(record_file_name);
         }
