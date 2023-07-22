@@ -50,9 +50,10 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId = 'com.luoyesiqiu.safecall'
-                artifactId = 'safecall'
+                groupId = 'com.github.luoyesiqiu'
+                artifactId = 'SafeCall'
                 version = '1.0.0'
+                artifact("$buildDir/outputs/aar/safecall-release.aar")
             }
         }
     }
