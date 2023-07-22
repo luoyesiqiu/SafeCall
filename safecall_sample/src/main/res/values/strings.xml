@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SafeCaller</string>
+    <string name="normal_call_text">normal call</string>
+    <string name="problem_call_text1">problem call1</string>
+    <string name="problem_call_text2">problem call2</string>
+</resources>
