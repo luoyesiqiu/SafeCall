@@ -28,13 +28,13 @@ void normalCall(JNIEnv *env,jclass __unused klass) {
 
 void problemCall1(JNIEnv *env,jclass __unused klass) {
     SAFE_CALL_VOID(problem_call1);
-    LOGD("problemCall1 do not call!");
+    LOGD("problem_call1 do not call!");
 }
 
 void problemCall2(JNIEnv *env,jclass __unused klass) {
     int ret = 0;
     SAFE_CALL(problem_call2,ret,123);
-    LOGD("problemCall2 do not call!");
+    LOGD("problem_call2 do not call!");
 }
 
 static JNINativeMethod gMethods[] = {
