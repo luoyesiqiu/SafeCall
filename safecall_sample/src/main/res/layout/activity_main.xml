@@ -9,10 +9,22 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_normal_call"
+        android:id="@+id/btn_normal_call1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/normal_call_text" />
+        android:text="@string/normal_call_text1" />
+
+    <Button
+        android:id="@+id/btn_normal_call2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/normal_call_text2" />
+
+    <Button
+        android:id="@+id/btn_normal_call3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/normal_call_text3" />
 
     <Button
         android:id="@+id/btn_problem_call1"

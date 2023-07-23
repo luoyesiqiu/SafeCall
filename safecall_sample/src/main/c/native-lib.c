@@ -1,6 +1,10 @@
 #include <jni.h>
 #include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <sys/prctl.h>
 #include <android/log.h>
+#include <assert.h>
 
 #include "safe_call.h"
 
@@ -8,8 +12,19 @@
 
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG,TAG,__VA_ARGS__)
 
-void normal_call() {
-    LOGD("normal_call called!");
+const char* getThreadName(){
+    static char threadName[256];
+    memset(threadName,0,256);
+    prctl(PR_GET_NAME, (unsigned long)threadName);
+    return threadName;
+}
+
+void normal_call1() {
+    LOGD("normal_call1 called!");
+}
+
+void normal_call2(int *n) {
+    (*n)++;
 }
 
 void problem_call1() {
@@ -22,8 +37,32 @@ int problem_call2(int arg) {
     return arg;
 }
 
-void normalCall(JNIEnv *env,jclass __unused klass) {
-    SAFE_CALL_VOID(normal_call);
+void normalCall1(JNIEnv *env,jclass __unused klass) {
+    SAFE_CALL_VOID(normal_call1);
+}
+
+void *sub_thread(void* args) {
+    const int N = 1 * 10000;
+    int n = 0;
+    for(int i = 0;i < N;i++) {
+        SAFE_CALL_VOID(normal_call2,&n);
+    }
+    assert(n == N);
+    LOGD("Thread [%s] has been safe run!",getThreadName());
+}
+
+void normalCall2(JNIEnv *env,jclass __unused klass) {
+    LOGD("Thread [normalCall2] start to run");
+    pthread_t t;
+    pthread_create(&t, NULL, sub_thread, NULL);
+    pthread_setname_np(t, "normalCall2");
+}
+
+void normalCall3(JNIEnv *env,jclass __unused klass) {
+    LOGD("Thread [normalCall3] start to run");
+    pthread_t t;
+    pthread_create(&t, NULL, sub_thread, NULL);
+    pthread_setname_np(t, "normalCall3");
 }
 
 void problemCall1(JNIEnv *env,jclass __unused klass) {
@@ -38,7 +77,9 @@ void problemCall2(JNIEnv *env,jclass __unused klass) {
 }
 
 static JNINativeMethod gMethods[] = {
-        {"normalCall", "()V",   (void *) normalCall},
+        {"normalCall1", "()V",   (void *) normalCall1},
+        {"normalCall2", "()V",   (void *) normalCall2},
+        {"normalCall3", "()V",   (void *) normalCall3},
         {"problemCall1", "()V",  (void *) problemCall1},
         {"problemCall2", "()V", (void *) problemCall2},
 };

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SafeCaller</string>
-    <string name="normal_call_text">normal call</string>
+    <string name="normal_call_text1">normal call1</string>
+    <string name="normal_call_text2">normal call2</string>
+    <string name="normal_call_text3">normal call3</string>
     <string name="problem_call_text1">problem call1</string>
     <string name="problem_call_text2">problem call2</string>
 </resources>
