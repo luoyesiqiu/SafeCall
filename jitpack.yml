@@ -7,4 +7,4 @@ install:
   - chmod +x ./gradlew
   - ./gradlew clean
   - ./gradlew safecall:assembleRelease
-  - ./gradlew safecall:publishMavenJavaPublicationToMavenLocal
+  - ./gradlew safecall:publishReleasePublicationToMavenLocal
