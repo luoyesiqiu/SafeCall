@@ -27,6 +27,11 @@ void normal_call2(int *n) {
     (*n)++;
 }
 
+int normal_call3(int *n) {
+    (*n)++;
+    return *n;
+}
+
 void problem_call1() {
     abort();
 }
@@ -41,7 +46,7 @@ void normalCall1(JNIEnv *env,jclass __unused klass) {
     SAFE_CALL_VOID(normal_call1);
 }
 
-void *sub_thread(void* args) {
+void *sub_thread1(void* args) {
     const int N = 1 * 10000;
     int n = 0;
     for(int i = 0;i < N;i++) {
@@ -51,17 +56,28 @@ void *sub_thread(void* args) {
     LOGD("Thread [%s] has been safe run!",getThreadName());
 }
 
+void *sub_thread2(void* args) {
+    const int N = 1 * 10000;
+    int n = 0;
+    int a = 0;
+    for(int i = 0;i < N;i++) {
+        SAFE_CALL(normal_call3,a,&n);
+    }
+    assert(a == N);
+    LOGD("Thread [%s] has been safe run!",getThreadName());
+}
+
 void normalCall2(JNIEnv *env,jclass __unused klass) {
     LOGD("Thread [normalCall2] start to run");
     pthread_t t;
-    pthread_create(&t, NULL, sub_thread, NULL);
+    pthread_create(&t, NULL, sub_thread1, NULL);
     pthread_setname_np(t, "normalCall2");
 }
 
 void normalCall3(JNIEnv *env,jclass __unused klass) {
     LOGD("Thread [normalCall3] start to run");
     pthread_t t;
-    pthread_create(&t, NULL, sub_thread, NULL);
+    pthread_create(&t, NULL, sub_thread2, NULL);
     pthread_setname_np(t, "normalCall3");
 }
 
