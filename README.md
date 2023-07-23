@@ -43,7 +43,7 @@ Includes this header file in your project.
 #include "safe_call.h"
 ```
 
-### Call a has a return value function.
+### Call a has no return value function.
 
 ```c
 void problem_call() {
@@ -54,7 +54,7 @@ void problem_call() {
 SAFE_CALL_VOID(problem_call);
 ```
 
-### Call a has no return value function.
+### Call a has a return value function.
 
 ```c
 int problem_call(int arg) {
