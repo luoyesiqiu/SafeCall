@@ -3,3 +3,13 @@ plugins {
     id 'com.android.application' version '8.0.2' apply false
     id 'com.android.library' version '8.0.2' apply false
 }
+
+ext {
+    groupId = "com.github.luoyesiqiu"
+    publishVersion = "1.0.0"
+    minSdk = 16
+    compileSdk = 33
+    targetSdk = 33
+    ndkVersion = "23.1.7779620"
+    cmakeVersion = "3.22.1"
+}

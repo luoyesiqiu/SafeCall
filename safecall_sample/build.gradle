@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.luoye.safecaller'
-    compileSdk 33
-
+    compileSdk rootProject.ext.compileSdk
+    ndkVersion rootProject.ext.ndkVersion
     defaultConfig {
         applicationId "com.luoye.safecaller"
-        minSdk 21
-        targetSdk 33
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -29,7 +29,7 @@ android {
     externalNativeBuild {
         cmake {
             path file('src/main/c/CMakeLists.txt')
-            version '3.22.1'
+            version rootProject.ext.cmakeVersion
         }
     }
     buildFeatures {

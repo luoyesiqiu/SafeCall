@@ -3,13 +3,17 @@ plugins {
     id 'maven-publish'
 }
 
+group = rootProject.ext.groupId
+version = rootProject.ext.publishVersion
+
 android {
     namespace 'com.luoye.safecall'
-    compileSdk 33
+    compileSdk rootProject.ext.compileSdk
+    ndkVersion rootProject.ext.ndkVersion
 
     defaultConfig {
-        minSdk 21
-        targetSdk 33
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
 
         externalNativeBuild {
             cmake {
@@ -27,7 +31,7 @@ android {
     externalNativeBuild {
         cmake {
             path "src/main/c/CMakeLists.txt"
-            version "3.22.1"
+            version rootProject.ext.cmakeVersion
         }
     }
 
@@ -50,9 +54,9 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId = 'com.github.luoyesiqiu'
+                groupId = rootProject.ext.groupId
                 artifactId = 'SafeCall'
-                version = '1.0.0'
+                version = rootProject.ext.publishVersion
                 artifact("$buildDir/outputs/aar/safecall-release.aar")
             }
         }
