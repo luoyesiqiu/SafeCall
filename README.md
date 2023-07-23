@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.luoyesiqiu:SafeCall:1.0.0'
+    implementation 'com.github.luoyesiqiu:SafeCall:1.0.1'
 }
 ```
 
